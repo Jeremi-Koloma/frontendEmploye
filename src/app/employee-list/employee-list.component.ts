@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; // Importation de router pour les liens 
 import { Employee } from '../employee'; // Employee Class
 import { EmployeeService } from '../employee.service'; // importation du service pour l'injection dans le constructeur;
 
@@ -12,7 +13,7 @@ export class EmployeeListComponent implements OnInit {
   employees!: Employee[]; // Employee Class;
 
   //Injectons notre service dans le constructeur;
-  constructor(private employeeService : EmployeeService) { }
+  constructor(private employeeService : EmployeeService, private router : Router) { }
 
   ngOnInit(): void {
     this.getEmployees();
@@ -22,6 +23,11 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.getEmployeeList().subscribe(data=>{
        this.employees = data;
     })
+  }
+
+  // le lien de naviguer vers la page upate depuis le bouttons-update in the form
+  updateEmployee(id : number){
+    this.router.navigate(['update-employee', id]);
   }
 
 
