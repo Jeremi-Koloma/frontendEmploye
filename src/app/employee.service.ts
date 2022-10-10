@@ -18,22 +18,33 @@ export class EmployeeService {
 
   private baseUrlUpdate = "http://localhost:8080/api/v1/employees/update";
 
+  private baseUrlDelete = "http://localhost:8080/api/v1/employees/delete";
+
   constructor(private httpClient : HttpClient) { }
 
+  //  La méthode qui nous permet d'afficher la liste des employés
   getEmployeeList() : Observable<Employee[]>{
     return this.httpClient.get<Employee[]>(`${this.baseUrl}`);
   }
 
+  // La méthode qui nous permet de d'ajouter un employé
   createEmployee(employee: Employee): Observable<object>{
     return this.httpClient.post(`${this.baseUrlCreate}`, employee);
   }
 
+  // La méthode qui nous retourne un employer avec tous ses coordonnées
   getEmployeeById(id : number) : Observable<Employee>{
     return this.httpClient.get<Employee>(`${this.baseUrlById}/${id}`);
   }
 
+  // La méthode qui nous permets de modifier un employé
   updateEmployee(id : number, employee : Employee) : Observable<Object>{
     return this.httpClient.put(`${this.baseUrlUpdate}/${id}`, employee);
+  }
+
+  // La méthode qui va supprimer 
+  deleteEmployee(id : number) : Observable<Object>{
+     return this.httpClient.delete(`${this.baseUrlDelete}/${id}`);
   }
 
 }
